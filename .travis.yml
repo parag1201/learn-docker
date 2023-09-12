@@ -1,0 +1,15 @@
+sudo: required
+services:
+  - Docker
+
+before_install:
+  docker build -t spider/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run spider/react-test npm test -- --coverage
+
+after_success:
+  docker build -t spider/multi-client ./client
+  docker build -t spider/multi-server ./server
+  docker build -t spider/multi-worker ./worker
+  docker build -t spider/multi-nginx ./nginx
