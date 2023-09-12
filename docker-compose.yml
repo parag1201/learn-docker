@@ -22,7 +22,7 @@ services:
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - PGUSER=portgres
+      - PGUSER=postgres
       - PGHOST=postgres
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
@@ -38,6 +38,8 @@ services:
       - /app/node_modules
       - ./worker:/app
   client:
+    environment:
+      - WDS_SOCKET_PORT=0
     build: 
       dockerfile: Dockerfile.dev
       context: ./client
